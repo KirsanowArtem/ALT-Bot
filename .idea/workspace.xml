@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="89c63e68-35f0-40c9-8d41-2ed9a0f9488a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/ALTbot.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Bot/TgBot.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Bot/пп.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ххх.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bot/Photos/KirsanovArtem_photo.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Bot/TgBot.py" beforeDir="false" afterPath="$PROJECT_DIR$/TgBot.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,21 +34,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Python.TgBot.executor&quot;: &quot;Run&quot;,
-    &quot;Python.bot_runner.executor&quot;: &quot;Run&quot;,
-    &quot;Python.пп.executor&quot;: &quot;Run&quot;,
-    &quot;Python.ххх.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.TgBot.executor": "Run",
+    "Python.bot_runner.executor": "Run",
+    "Python.пп.executor": "Run",
+    "Python.ххх.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "settings.editor.selected.configurable": "vcs.Git"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\Programming\Python\ALTbot\Bot" />
       <recent name="D:\Programming\Python\ALTbot" />
+      <recent name="D:\Programming\Python\ALTbot\Bot" />
     </key>
   </component>
   <component name="RunManager" selected="Python.TgBot">
@@ -95,7 +87,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Bot/TgBot.py" />
+      <option name="SCRIPT_NAME" value="D:\Programming\Python\ALTbot\TgBot.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -128,26 +120,5 @@
       <updated>1727589961242</updated>
     </task>
     <servers />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Bot/TgBot.py</url>
-          <line>526</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Bot/TgBot.py</url>
-          <line>522</line>
-          <option name="timeStamp" value="12" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/Bot/TgBot.py</url>
-          <line>365</line>
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
