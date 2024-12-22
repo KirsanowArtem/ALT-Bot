@@ -32,7 +32,7 @@ async def start(update: Update, context):
     chat_id = update.effective_chat.id
 
     if chat_id == -1002340443739:
-        await update.message.reply_text("Команда /start недоступна в цій групі.")
+        await update.message.reply_text("Команда /start недоступна в этой групе.")
         return
 
     if user.id not in users_info:
@@ -50,7 +50,7 @@ async def start(update: Update, context):
     reply_markup = ReplyKeyboardMarkup(keyboard, resize_keyboard=True)
 
     await update.message.reply_text(
-        "Привіт! Я ваш бот. Введіть команду /rate для залишення відгуку, /massage для зв'язку з адміністраторами або /help для ознайомлення з командами.",
+        "Привет! Я ваш бот. Введите команду /rate для отзыва, /massage для написания в поддержку или /help для ознакомления с командами.",
         reply_markup=reply_markup
     )
 
@@ -71,7 +71,7 @@ async def rate(update: Update, context):
     else:
         average_rating = 0
 
-    rating_text = f"Загальна оцінка: {round(average_rating, 1)}⭐️\nВаша попередня оцінка: {user_rating}⭐️"
+    rating_text = f"Общая оценка: {round(average_rating, 1)}⭐️\nВаша прошлая оценка: {user_rating}⭐️"
 
     keyboard = [
         [InlineKeyboardButton("0.5⭐️", callback_data='0.5'), InlineKeyboardButton("1⭐️", callback_data='1')],
@@ -84,7 +84,7 @@ async def rate(update: Update, context):
     reply_markup = InlineKeyboardMarkup(keyboard)
 
 
-    await update.message.reply_text(f"{rating_text}\nОберіть оцінку:", reply_markup=reply_markup)
+    await update.message.reply_text(f"{rating_text}\nВыберите оценку:", reply_markup=reply_markup)
 
 
 async def button_callback(update: Update, context):
@@ -103,7 +103,7 @@ async def button_callback(update: Update, context):
     average_rating = total_score / num_of_ratings if num_of_ratings > 0 else 0
 
 
-    await query.edit_message_text(f"Загальна оцінка: {round(average_rating, 1)}⭐️\nВаша оцінка: {rating}⭐️\nДякуємо за вашу оцінку!")
+    await query.edit_message_text(f"Общая оценка: {round(average_rating, 1)}⭐️\nВаша оценка: {rating}⭐️\nСпасибо за вашу оценку!")
 
 
 async def button(update: Update, context):
@@ -123,7 +123,7 @@ async def button(update: Update, context):
         users_info[user_id]['rating'] = selected_rate
 
     await query.edit_message_text(
-        f"Дякуємо за ваш відгук! Ваша оцінка: {selected_rate}⭐️\nЗагальна оцінка: {round(average_rating, 1)}⭐️")
+        f"Спасибо за вашу оценку! Ваша оценка: {selected_rate}⭐️\nОбщая оценка: {round(average_rating, 1)}⭐️")
 
 
 async def auto_delete_message(bot, chat_id, message_id, delay):
@@ -134,11 +134,11 @@ async def auto_delete_message(bot, chat_id, message_id, delay):
 async def massage(update: Update, context):
     user_id = update.message.from_user.id
     if user_id in muted_users and muted_users[user_id]['expiration'] > datetime.now():
-        reply = await update.message.reply_text("Ви замучені й не можете надсилати повідомлення.")
+        reply = await update.message.reply_text("Вы в муте й не можете присыдать сообшения.")
         asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
         return
     reply = await update.message.reply_text(
-        "Введіть ваше повідомлення, і його буде надіслано адміністраторам бота. Введіть /stopmassage, щоб завершити введення повідомлень."
+        "Введите ваше сообшение, і его будет отослано администраторам бота. Введите /stopmassage, чтобы закончить ввод сообшений."
     )
 
     context.user_data['waiting_for_message'] = True
@@ -148,52 +148,53 @@ async def massage(update: Update, context):
 
 async def stopmassage(update: Update, context):
     if context.user_data.get('waiting_for_message'):
-        reply = await update.message.reply_text("Ви завершили введення повідомлень.")
+        reply = await update.message.reply_text("Ви закончили ввод сообшений.")
         context.user_data['waiting_for_message'] = False
         asyncio.create_task(
             auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=5))
     else:
-        await update.message.reply_text("Ви не перебуваєте в режимі введення повідомлень.")
+        await update.message.reply_text("Ви не в режиме ввода сообшений.")
 
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if update.message.chat.id != CREATOR_CHAT_ID:
         user_id = update.message.from_user.id
         if user_id in muted_users and muted_users[user_id]['expiration'] > datetime.now():
-            reply = await update.message.reply_text("Ви замучені й не можете надсилати повідомлення.")
+            reply = await update.message.reply_text("Ви в муте и не можете отправлять сообшения.")
             asyncio.create_task(
                 auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
             return
 
         if context.user_data.get('waiting_for_message'):
             user_name = update.effective_user.first_name
-            user_username = update.effective_user.username if update.effective_user.username else "немає імені користувача"
+            user_username = update.effective_user.username if update.effective_user.username else "нет имени пользователя"
             current_time = get_current_time_kiev()
             user_message = ""
-            first_message = f'Повідомлення від "{user_name}"; "@{user_username}" \n{current_time}:'
+            first_message = f'Сообшение от "{user_name}"; "```@{user_username}```" \n{current_time}:'
 
             if update.message.text:
                 user_message = update.message.text
                 first_message += f'\n{user_message}'
 
+
             if update.message.photo:
                 photo_file_id = update.message.photo[-1].file_id
-                message_to_admin = await context.bot.send_photo(chat_id=CREATOR_CHAT_ID, photo=photo_file_id, caption=first_message)
+                message_to_admin = await context.bot.send_photo(chat_id=CREATOR_CHAT_ID, photo=photo_file_id, caption=first_message, parse_mode = "MarkdownV2")
 
             elif update.message.document:
                 document_file_id = update.message.document.file_id
                 document_name = update.message.document.file_name
-                message_to_admin = await context.bot.send_document(chat_id=CREATOR_CHAT_ID, document=document_file_id, caption=first_message)
+                message_to_admin = await context.bot.send_document(chat_id=CREATOR_CHAT_ID, document=document_file_id, caption=first_message, parse_mode = "MarkdownV2")
 
             else:
-                message_to_admin = await context.bot.send_message(chat_id=CREATOR_CHAT_ID, text=first_message)
+                message_to_admin = await context.bot.send_message(chat_id=CREATOR_CHAT_ID, text=first_message, parse_mode = "MarkdownV2")
 
             sent_messages[message_to_admin.message_id] = update.effective_user.id
 
-            reply = await update.message.reply_text("Ваше повідомлення надіслано адміністраторам бота.")
-            asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=5))
+            reply = await update.message.reply_text("Ваше сообшение отправлено администраторам бота.")
+            asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=5, parse_mode = "MarkdownV2"))
         else:
-            await update.message.reply_text("Введіть /massage, щоб надіслати повідомлення адміністраторам бота.")
+            await update.message.reply_text("Введите /massage, чтобы отправлять сообшения администраторам бота.")
     else:
         if update.effective_user.id != context.bot.id:
             if update.message.reply_to_message:
@@ -218,18 +219,18 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def mute(update: Update, context):
     if update.message.chat.id != CREATOR_CHAT_ID:
-        reply = await update.message.reply_text("Ця команда доступна тільки адміністраторам бота.")
+        reply = await update.message.reply_text("Эта команда доступна только администраторам бота.")
         asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
         return
 
     if len(context.args) < 2:
-        reply = await update.message.reply_text("Використовуйте: /mute <час> <користувач> [причина]")
+        reply = await update.message.reply_text("Используйте: /mute <время> <пользователь> [причина]")
         asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=60))
         return
 
     mute_time = 0
     username = None
-    reason = "По рішенню администратора"
+    reason = "По решению администратора"
     for arg in context.args:
         if arg.startswith('@'):
             username = arg[1:]
@@ -246,7 +247,7 @@ async def mute(update: Update, context):
             reason = arg
 
     if username is None:
-        await update.message.reply_text("Не вказано користувача для мута.")
+        await update.message.reply_text("Не указано пользователя для мута.")
         return
 
     user_id = None
@@ -279,22 +280,22 @@ async def mute(update: Update, context):
 
         await context.bot.restrict_chat_member(chat_id=CREATOR_CHAT_ID, user_id=user_id, permissions=mute_permissions)
         await context.bot.send_message(chat_id=user_id, text=f"Вас замутили на {mute_duration}\nПричина: {reason}")
-        reply = await update.message.reply_text(f"Користувач @{username} замучен на {mute_duration}\nПричина: {reason}")
+        reply = await update.message.reply_text(f"Пользователь @{username} замучен на {mute_duration}\nПричина: {reason}")
         asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=60))
     else:
-        reply = await update.message.reply_text(f"Користувач @{username} не знайден.")
+        reply = await update.message.reply_text(f"Пользователь @{username} не знайден.")
         asyncio.create_task(auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=60))
 
 async def unmute(update: Update, context):
     user = update.message.from_user.username
     if not is_programmer(user) and not is_admin(user):
-            reply = await update.message.reply_text("Ця команда доступна тільки адміністраторам бота..")
+            reply = await update.message.reply_text("Эта команда доступна только администраторам бота.")
             asyncio.create_task(
                 auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
             return
 
     if len(context.args) < 1:
-        await update.message.reply_text("Використовуйте: /unmute <користувач>")
+        await update.message.reply_text("Используйте: /unmute <пользователь>")
         return
 
     username = context.args[0].lstrip('@')
@@ -308,22 +309,22 @@ async def unmute(update: Update, context):
 
     if user_id is not None and user_id in muted_users:
         del muted_users[user_id]
-        await context.bot.send_message(chat_id=user_id, text=f"Ви були розмучені.")
-        await update.message.reply_text(f"Користувач @{username} був розмучений.")
+        await context.bot.send_message(chat_id=user_id, text=f"Ви были розмучены.")
+        await update.message.reply_text(f"Пользователь @{username} был розмучен.")
     else:
-        await update.message.reply_text(f"Користувач @{username} не знайдений або не був замучений.")
+        await update.message.reply_text(f"Пользователь @{username} не найден или не был замучен.")
 
 
 async def mutelist(update: Update, context):
     user = update.message.from_user.username
     if update.message.chat.id != CREATOR_CHAT_ID:
         if not is_programmer(user) and not is_admin(user):
-            reply = await update.message.reply_text("Ця команда доступна тільки адміністраторам бота.")
+            reply = await update.message.reply_text("Эта команда доступна только администраторам бота.")
             asyncio.create_task(
                 auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
             return
 
-    response = "Замучені користувачі:\n"
+    response = "Замученые пользователи:\n"
 
     if muted_users:
         for user_id, mute_info in muted_users.items():
@@ -332,11 +333,11 @@ async def mutelist(update: Update, context):
             reason = mute_info['reason']
 
             user_info = await context.bot.get_chat_member(chat_id=CREATOR_CHAT_ID, user_id=user_id)
-            user_fullname = user_info.user.first_name or "Невідомий"
-            username = user_info.user.username or "Немає імені користувача"
+            user_fullname = user_info.user.first_name or "Неизвестный"
+            username = user_info.user.username or "Нет имени пользователя"
 
             user_data = users_info.get(user_id, {})
-            join_date = user_data.get('join_date', 'Невідома')
+            join_date = user_data.get('join_date', 'Неизвестная')
             rating = user_data.get('rating', 0)
             mute_symbol = "🔇"
 
@@ -353,11 +354,11 @@ async def mutelist(update: Update, context):
                 f"Осталось: {str(time_left).split('.')[0]}\n"
                 f"Причина: {reason}\n"
                 f"Дата захода: {join_date}\n"
-                f"Оцінка: {rating}⭐️\n"
+                f"Оценка: {rating}⭐️\n"
                 "-------------------------------------------------------------------------\n"
             )
     else:
-        response += "Немає замучених користувачів.\n"
+        response += "Нет замученых пользователей.\n"
         response += "-------------------------------------------------------------------------\n"
 
     await update.message.reply_text(response)
@@ -367,12 +368,12 @@ async def alllist(update: Update, context):
     user = update.message.from_user.username
     if update.message.chat.id != CREATOR_CHAT_ID:
         if not is_programmer(user) and not is_admin(user):
-            reply = await update.message.reply_text("Ця команда доступна тільки адміністраторам бота.")
+            reply = await update.message.reply_text("Эта команда доступна только администраторам бота.")
             asyncio.create_task(
                 auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
             return
 
-    response = "Користувачі:\n"
+    response = "Пользователи:\n"
 
     unique_users = set()
 
@@ -382,11 +383,11 @@ async def alllist(update: Update, context):
     if unique_users:
         for user_id in unique_users:
             user_info = await context.bot.get_chat_member(chat_id=CREATOR_CHAT_ID, user_id=user_id)
-            user_fullname = user_info.user.first_name or "Невідомий"
-            username = user_info.user.username or "Немає імені користувача"
+            user_fullname = user_info.user.first_name or "Неизвестный"
+            username = user_info.user.username or "Нет имени пользователя"
 
             user_data = users_info.get(user_id, {})
-            join_date = user_data.get('join_date', 'Невідома')
+            join_date = user_data.get('join_date', 'Неизвестная')
             rating = user_data.get('rating', 0)
 
             admins_sumdol = "👨🏻‍💼"
@@ -402,13 +403,13 @@ async def alllist(update: Update, context):
                 mute_symbol = "🔇"
             else:
                 mute_symbol = "🔊"
-            response += f"{admins_sumdol} {mute_symbol} {user_fullname}; @{username}\nДата захода: {join_date}\nОцінка: {rating}⭐️\n"
+            response += f"{admins_sumdol} {mute_symbol} {user_fullname}; @{username}\nДата захода: {join_date}\nОценка: {rating}⭐️\n"
             response += "-------------------------------------------------------------------------\n"
     else:
-        response += "Немає користувачів.\n"
+        response += "Нет пользователей.\n"
         response += "-------------------------------------------------------------------------\n"
 
-    response += "Замучені користувачі:\n"
+    response += "Замученые пользователи:\n"
 
     if muted_users:
         for user_id, mute_info in muted_users.items():
@@ -416,11 +417,11 @@ async def alllist(update: Update, context):
             time_left = expiration - datetime.now()
             reason = mute_info['reason']
             user_info = await context.bot.get_chat_member(chat_id=CREATOR_CHAT_ID, user_id=user_id)
-            user_fullname = user_info.user.first_name or "Невідомий"
-            username = user_info.user.username or "Немає імені користувача"
+            user_fullname = user_info.user.first_name or "Неизвестный"
+            username = user_info.user.username or "Нет имени пользователя"
 
             user_data = users_info.get(user_id, {})
-            join_date = user_data.get('join_date', 'Невідома')
+            join_date = user_data.get('join_date', 'Неизвестная')
             rating = user_data.get('rating', 0)
 
             admins_sumdol = "👨🏻‍💼"
@@ -433,14 +434,14 @@ async def alllist(update: Update, context):
 
             response += (
                 f"{admins_sumdol} {mute_symbol} {user_fullname}; @{username}\n"
-                f"Залишилось: {str(time_left).split('.')[0]}\n"
+                f"Осталось: {str(time_left).split('.')[0]}\n"
                 f"Причина: {reason}\n"
                 f"Дата захода: {join_date}\n"
-                f"Оцінка: {rating}⭐️\n"
+                f"Оценка: {rating}⭐️\n"
                 "-------------------------------------------------------------------------\n"
             )
     else:
-        response += "Немає замучених користувачів.\n"
+        response += "Нет замученых пользователей.\n"
         response += "-------------------------------------------------------------------------\n"
 
     await update.message.reply_text(response)
@@ -450,13 +451,13 @@ async def allmassage(update: Update, context):
     user = update.message.from_user.username
     if update.message.chat.id != CREATOR_CHAT_ID:
         if not is_programmer(user) and not is_admin(user):
-            reply = await update.message.reply_text("Ця команда доступна тільки адміністраторам бота.")
+            reply = await update.message.reply_text("Эта команда доступна только администраторам бота.")
             asyncio.create_task(
                 auto_delete_message(context.bot, chat_id=reply.chat.id, message_id=reply.message_id, delay=10))
             return
 
     if not context.args:
-        await update.message.reply_text("Будь ласка, вкажіть текст повідомлення після команди.")
+        await update.message.reply_text("Пожалуйста, укажите текст сообшения после команди.")
         return
 
     message_text = ' '.join(context.args)
@@ -465,29 +466,29 @@ async def allmassage(update: Update, context):
     for user_id in unique_users:
         await context.bot.send_message(chat_id=user_id, text=message_text)
 
-    await update.message.reply_text("Повідомлення відправлено всім користувачам.")
+    await update.message.reply_text("Сообшение отправлено всем пользователям.")
 
 
 async def help(update: Update, context):
     if update.message.chat.id == CREATOR_CHAT_ID:
         help_text = (
-            "Доступні команди в групі:\n"
-            "Відповісти на повідомлення бота - Відправити повідомлення користувачу який прислав це повідомлення.\n"
-            "/mute <час> <користувач> [причина] - Замучити користувача на вказаний час.\n"
-            "/unmute <користувач> - Розмутити користувача.\n"
-            "/mutelist - Показати список замучених користувачів.\n"
-            "/alllist - Показати всіх користувачів.\n"
-            "/allmassage <повідомлення> - Надіслати повідомлення всім користувачам.\n"
+            "Доступные команды в групе:\n"
+            "Ответить на сообшение бота - Отправить сообшение пользователю который прислаа это сообшение.\n"
+            "/mute <время> <пользователь> [причина] - Замутить пользователя на указаное время.\n"
+            "/unmute <пользователь> - Розмутить пользователя.\n"
+            "/mutelist - Показать список замучених пользователей.\n"
+            "/alllist - Показати всех пользователей.\n"
+            "/allmassage <сообшение> - Отправить сообшение всем пользователям.\n"
         )
     else:
         help_text = (
-            "Доступні команди в боті:\n"
-            "/start - Запустити бота.\n"
-            "/rate - Залишити відгук.\n"
-            "/massage - Почати введення повідомленнь адміністраторам.\n"
-            "/stopmassage - Завершити введення повідомлень.\n"
-            "/fromus - інформація про нас\n"
-            "/help - Показати доступні команди.\n"
+            "Доступные команди в боте:\n"
+            "/start - Запустить бота.\n"
+            "/rate - Оставить отзыв.\n"
+            "/massage - Начать ввод сообшений администраторам.\n"
+            "/stopmassage - Закончить ввод сообшений.\n"
+            "/fromus - інформацыя про создателя\n"
+            "/help - Показать доступные команды.\n"
         )
 
     await update.message.reply_text(help_text)
@@ -495,29 +496,14 @@ async def help(update: Update, context):
 
 async def fromus(update: Update, context):
     await update.message.reply_text(
-        "*Ми команда ALT, до нас входять:*",
-        parse_mode="MarkdownV2"
-    )
-    await update.message.reply_text(
         "*Кірсанов Артем*",
         parse_mode="MarkdownV2"
     )
-    await update.message.reply_text("🔷Робив проєкти:\n🔹Гра\n🔹Бот підтримки\n🔶Робив міні-проєкти:\n🔸міні-гра палички\n🔈Посиланняна на контакти/соцмережі:\n----")
     await update.message.reply_text(
-        "*Дорошенко Леонід*",
+        " ```@ArtemKirss``` ",
         parse_mode="MarkdownV2"
     )
-    await update.message.reply_text("🔷Робив проєкти:\n🔹Гра\n🔶Робив міні-проєкти:\n🔸міні-гра палички\n🔈Посиланняна на контакти/соцмережі:\n----")
-    await update.message.reply_text(
-        "*Гандзий Егор*",
-        parse_mode="MarkdownV2"
-    )
-    await update.message.reply_text("🔷Робив проєкти:\n🔹---\n🔶Робив міні-проєкти:\n🔸міні-гра палички\n🔈осиланняна на контакти/соцмережі:\n----")
-    await update.message.reply_text(
-        "*Попов Олексій*",
-        parse_mode="MarkdownV2"
-    )
-    await update.message.reply_text("🔷Робив проєкти:\n🔹Гра\n🔶Робив міні-проєкти:\n🔸---\n🔈Посиланняна на контакти/соцмережі:\n----")
+    await update.message.reply_text("Написал бота")
 
 
 def is_programmer(user):
@@ -631,7 +617,6 @@ def main():
     application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
     application.add_handler(MessageHandler(filters.PHOTO, handle_message))
     application.add_handler(MessageHandler(filters.Document.ALL, handle_message))
-
     application.run_polling()
 
 
