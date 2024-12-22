@@ -170,7 +170,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             user_username = update.effective_user.username if update.effective_user.username else "немає імені користувача"
             current_time = get_current_time_kiev()
             user_message = ""
-            first_message = f'Повідомлення від "{user_name}"; ```@{user_username}``` \n{current_time}:'
+            first_message = f'Повідомлення від **{user_name}**; ```@{user_username}``` \n{current_time}:'
 
             if update.message.text:
                 user_message = update.message.text
