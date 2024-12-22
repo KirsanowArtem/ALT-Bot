@@ -34,20 +34,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.TgBot (1).executor": "Run",
-    "Python.TgBot.executor": "Run",
-    "Python.bot_runner.executor": "Run",
-    "Python.dlyaproverki.executor": "Run",
-    "Python.j.executor": "Run",
-    "Python.пп.executor": "Run",
-    "Python.ххх.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "settings.editor.selected.configurable": "vcs.Git"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.TgBot (1).executor&quot;: &quot;Run&quot;,
+    &quot;Python.TgBot.executor&quot;: &quot;Run&quot;,
+    &quot;Python.bot_runner.executor&quot;: &quot;Run&quot;,
+    &quot;Python.dlyaproverki.executor&quot;: &quot;Run&quot;,
+    &quot;Python.j.executor&quot;: &quot;Run&quot;,
+    &quot;Python.пп.executor&quot;: &quot;Run&quot;,
+    &quot;Python.ххх.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Programming\Python\ALTbot" />
@@ -177,6 +177,31 @@
           <url>file://$PROJECT_DIR$/TgBot.py</url>
           <line>172</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TgBot.py</url>
+          <line>314</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TgBot.py</url>
+          <line>326</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TgBot.py</url>
+          <line>471</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TgBot.py</url>
+          <line>525</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/TgBot.py</url>
+          <line>541</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
