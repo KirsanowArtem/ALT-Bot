@@ -170,7 +170,7 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
             user_username = update.effective_user.username if update.effective_user.username else "немає імені користувача"
             current_time = get_current_time_kiev()
             user_message = ""
-            first_message = f'Повідомлення від"{user_name}"; "```@{user_username}```" \n{current_time}:'
+            first_message = f'Повідомлення від *{user_name}*; ```@{user_username}``" \n{current_time}:'
 
             if update.message.text:
                 user_message = update.message.text
@@ -514,7 +514,6 @@ def is_admin(user):
     return user in admins
 
 
-
 async def admin(update: Update, context: CallbackContext):
     if context.args:
         target_user = context.args[0]
@@ -531,6 +530,7 @@ async def admin(update: Update, context: CallbackContext):
     else:
         await update.message.reply_text("Будь ласка, укажіть ім'я користувача після команди.")
 
+
 async def deleteadmin(update: Update, context: CallbackContext):
     if context.args:
         target_user = context.args[0]
@@ -546,7 +546,6 @@ async def deleteadmin(update: Update, context: CallbackContext):
             await update.message.reply_text("Ця команда доступна лише адміністраторам.")
     else:
         await update.message.reply_text("Будь ласка, укажіть ім'я користувача після команди")
-
 
 
 async def programier(update: Update, context: CallbackContext):
@@ -621,4 +620,4 @@ def main():
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    #asyncio.run(main())
